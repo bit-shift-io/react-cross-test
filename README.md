@@ -18,8 +18,12 @@ Dates - https://date-fns.org/
 
 # Test projects
 
-react-native-web (https://necolas.github.io/react-native-web/) is used by some frameworks already, so I have some tests:
+react-native-web (https://necolas.github.io/react-native-web/) is used by some frameworks already, so I have some tests below.
 
 reactjs-react-native-elements - testing out https://reactnativeelements.com/docs/installation#using-on-web
-reactjs-react-native-paper - testing out https://callstack.github.io/react-native-paper/using-on-the-web.html
+Is supposed to be installed into a reactjs project, but havent had any success yet.
+
+react_native_paper - testing out https://callstack.github.io/react-native-paper/using-on-the-web.html
+Note this need to be installed in a react native project, not a reactjs project!
+
 react-native-base used in SS
