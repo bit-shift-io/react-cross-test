@@ -38,6 +38,7 @@ export const flex = (
     return {justifyContent, alignItems, flexDirection: rowOrCol}
 }
 
+// TODO: wrap in memo for performance?
 export const parseStyleProps = (props) => {
     const flexDirectionMap = {
         'col': 'column',
