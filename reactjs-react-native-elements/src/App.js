@@ -2,9 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import { ThemeProvider, Button, createTheme } from '@rneui/themed';
 import { AirbnbRating } from "@rneui/themed";
-import {View } from 'react-native'
+import {View } from './components/view'
 import { Chip } from '@rneui/themed';
 import { Switch } from "@rneui/themed";
+
+import {FlexRow, FlexCol} from './components/flex'
 
 const theme = createTheme({
   Button: {
@@ -50,6 +52,21 @@ function App() {
           value={false}
           //onValueChange={(value) => setChecked(value)}
         />
+
+        <View bc-red p-2>
+          Styled View Test  
+        </View>
+
+        <FlexRow style={{backgroundColor: 'yellow'}}>
+          <FlexCol h-center style={{flex: 1, backgroundColor: 'orange'}}>
+            <View>A1</View>
+            <View>A2</View>
+          </FlexCol>
+          <FlexRow style={{flex: 1}}>
+            <View style={{flex: 1}}>B1</View>
+            <View style={{flex: 1}}>B2</View>
+          </FlexRow>
+        </FlexRow>
 
       </View>
     </ThemeProvider>
