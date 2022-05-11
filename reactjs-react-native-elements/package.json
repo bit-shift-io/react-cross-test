@@ -1,0 +1,47 @@
+{
+  "name": "reactjs-react-native-elements",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@rneui/base": "^4.0.0-rc.3",
+    "@rneui/themed": "^4.0.0-rc.3",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-native-vector-icons": "^9.1.0",
+    "react-native-web": "^0.17.7",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.2.1"
+  }
+}

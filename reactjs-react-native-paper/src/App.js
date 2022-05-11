@@ -1,11 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 
-import {Test} from './Test'
-//import {Flex} from 'react-cross/components.primitives'
-import {TestComp} from 'react-cross'
-
-
 function App() {
   return (
     <div className="App">

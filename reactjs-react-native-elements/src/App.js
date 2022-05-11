@@ -1,14 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-
-import {Test} from './Test'
-//import {Flex} from 'react-cross/components.primitives'
-import {TestComp} from 'react-cross'
-
+import { Button } from '@rneui/base'; // this causes an error re react-native-safe-area-context
 
 function App() {
   return (
     <div className="App">
+      <Button title="Hello World" />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

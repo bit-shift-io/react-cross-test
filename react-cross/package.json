@@ -2,6 +2,8 @@
   "name": "react-cross",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/preset-react": "^7.16.7"
   }
 }
