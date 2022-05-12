@@ -14,8 +14,8 @@ const paddingMap = {
 const keyMap = {
   // flex
   'fd': (v) => ({flexDirection: flexDirectionMap[v]}),
-  'v': (v) => ({verticalAlign: v}),
-  'h': (v) => ({horizontalAlign: v}),
+  'fv': (v) => ({verticalAlign: v}),
+  'fh': (v) => ({horizontalAlign: v}),
   'f': (v) => ({flex: v}),
 
   // padding
@@ -37,8 +37,16 @@ const keyMap = {
   'bw': (v) => ({borderWidth: v}),
   'bc': (v) => ({borderColor: v}),
 
+  // size
+  'w': (v) => ({width: v}),
+  'h': (v) => ({height: v}),
+
   // other
   'bg': (v) => ({background: v}),
+}
+
+const patchUnits = (v) => {
+  return v.replace('pct', '%')
 }
 
 // Style props hook
@@ -54,12 +62,13 @@ export const useStyleProps = (props) => {
         }
 
         const prefix = splits[0]
-        if (!keyMap[prefix]) {
+        const fn = keyMap[prefix]
+        if (!fn) {
           return
         }
 
         const postfix = splits[1]
-        const r = keyMap[prefix](postfix)
+        const r = fn(patchUnits(postfix))
         s = {...s, ...r}
     })
 

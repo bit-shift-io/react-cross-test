@@ -53,12 +53,12 @@ function App() {
           //onValueChange={(value) => setChecked(value)}
         />
 
-        <View bg-red p-2 m-10px br-10px bc-green bw-2px>
+        <View bg-red p-2 m-10px br-10px bc-green bw-2px h-20pct>
           Styled View Test  
         </View>
 
         <FlexRow bg-yellow>
-          <FlexCol h-center bg-orange f-1>
+          <FlexCol fh-center bg-orange f-1>
             <View>A1</View>
             <View>A2</View>
           </FlexCol>
