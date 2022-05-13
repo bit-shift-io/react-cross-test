@@ -19,8 +19,8 @@ export const TodoListView = (props) => {
     const {list, onAddPress, onRemovePress} = props
     return (
         <View>
-            {list.map(todo => {
-                return <TodoItem todo={todo} onRemovePress={() => onRemovePress(todo)}/>
+            {list.map((todo) => {
+                return <TodoItem todo={todo} onRemovePress={() => onRemovePress(todo)} key={todo.id}/>
             })}
             <Button
                 title="+"

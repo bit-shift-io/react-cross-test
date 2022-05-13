@@ -43,46 +43,58 @@ const keyMap = {
 
   // other
   'bg': (v) => ({background: v}),
+  'c': (v) => ({color: v}),
 }
 
 const patchUnits = (v) => {
   return v.replace('pct', '%')
 }
 
-// Style props hook
 // TODO: wrap in memo for performance?
-export const useStyleProps = (props) => {
-    const entries = Object.entries(props)
-    let s = {}
-    entries.forEach((entry) => {
-        const [key, value] = entry
-        const splits = key.split('-')
-        if (splits.length <= 1) {
-            return
-        }
-
-        const prefix = splits[0]
-        const fn = keyMap[prefix]
-        if (!fn) {
+const styleFromArray = (arr) => {
+  let s = {}
+  arr.forEach((key) => {
+      const splits = key.split('-')
+      if (splits.length <= 1) {
           return
-        }
+      }
 
-        const postfix = splits[1]
-        const r = fn(patchUnits(postfix))
-        s = {...s, ...r}
-    })
+      const prefix = splits[0]
+      const fn = keyMap[prefix]
+      if (!fn) {
+        return
+      }
 
-    // special flex handling
-    if (s.flexDirection) {
-        const flexStyle = flex(s.flexDirection, s.verticalAlign, s.horizontalAlign)
-        delete s.verticalAlign
-        delete s.horizontalAlign
-        s = {...s, ...flexStyle}
-    }
+      const postfix = splits[1]
+      const r = fn(patchUnits(postfix))
+      s = {...s, ...r}
+  })
+
+  // special flex handling
+  if (s.flexDirection) {
+    const flexStyle = flex(s.flexDirection, s.verticalAlign, s.horizontalAlign)
+    delete s.verticalAlign
+    delete s.horizontalAlign
+    s = {...s, ...flexStyle}
+  }
+
+  return s
+}
+
+// Style props hook
+export const useStyleProps = (props) => {
+    const arr = Object.entries(props).map(e => e[0])
+    const s = styleFromArray(arr)
 
     const {style, ...otherProps} = props
     const newStyle = [s, style || {}]
     return {style: newStyle, otherProps}
+}
+
+// string to style
+export const styleString = (str) => {
+  const s = styleFromArray(str.split(' '))
+  return s
 }
 
 // Style props HOC

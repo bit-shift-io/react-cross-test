@@ -7,6 +7,7 @@ import { Switch } from "@rneui/themed";
 import {createReduxModule, Provider} from 'hooks-for-redux'
 import {FlexRow, FlexCol, View, Text} from './components-core'
 import {LoginForm, TodoList} from './components'
+import {styleString} from './utils/style'
 
 const theme = createTheme({
   Button: {
@@ -33,7 +34,7 @@ function App() {
         `}</style>
 
         <View style={{padding: '10px'}}>
-          <Button title="Hello World" titleStyle={{ color: 'pink' }} />
+          <Button title="Hello World" buttonStyle={styleString(`br-40px bg-purple`)} titleStyle={styleString(`c-red`)} />
           <AirbnbRating />
           <Chip
             title="Pressable Icon Chip"
