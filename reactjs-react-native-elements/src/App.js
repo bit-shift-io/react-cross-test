@@ -2,11 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import { ThemeProvider, Button, createTheme } from '@rneui/themed';
 import { AirbnbRating } from "@rneui/themed";
-import {View } from './components/view'
 import { Chip } from '@rneui/themed';
 import { Switch } from "@rneui/themed";
 
-import {FlexRow, FlexCol} from './components/flex'
+import {FlexRow, FlexCol, View, Text} from './components-core'
+import {LoginForm} from './components'
 
 const theme = createTheme({
   Button: {
@@ -54,19 +54,21 @@ function App() {
         />
 
         <View bg-red p-2 m-10px br-10px bc-green bw-2px h-20pct>
-          Styled View Test  
+          <Text>Styled View Test</Text>
         </View>
 
         <FlexRow bg-yellow>
           <FlexCol fh-center bg-orange f-1>
-            <View>A1</View>
-            <View>A2</View>
+            <Text>A1</Text>
+            <Text>A2</Text>
           </FlexCol>
           <FlexRow f-1>
-            <View f-1>B1</View>
-            <View f-1>B2</View>
+            <Text f-1>B1</Text>
+            <Text f-1>B2</Text>
           </FlexRow>
         </FlexRow>
+
+        <LoginForm/>
 
       </View>
     </ThemeProvider>
