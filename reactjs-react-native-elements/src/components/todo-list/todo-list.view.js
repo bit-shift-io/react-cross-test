@@ -5,8 +5,12 @@ export const TodoItem = (props) => {
     const {todo, onRemovePress} = props
     return (
         <View>
-            <Text>{todo.title}</Text>
-            <Text>{todo.comment}</Text>
+            <Input
+                value={todo.title}
+            />
+            <Input
+                value={todo.comment}
+            />
             <Button
                 title="-"
                 onPress={onRemovePress}
