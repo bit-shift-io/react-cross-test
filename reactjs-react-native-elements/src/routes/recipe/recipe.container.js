@@ -5,15 +5,12 @@ import {useQuery} from 'react-query'
 
 export const Recipe = (props) => {
     const {url, path} = props.route.params
-    const query = useQuery(['recipe', {path}], getRecipe(path))
+    const query = useQuery(['recipe', {path}], (args) => {
+        const [_key, {path}] = args.queryKey
+        return getRecipe(path)
+    })
 
-    if (!query.isLoading) {
-        console.log('loaded!')
-    }
-    if (query.data) {
-        console.log('yay!')
-    }
     return (
-        <RecipeView loading={query.isLoading} item={query.data} />
+        <RecipeView loading={query.isLoading} content={query.data} />
     )
 }
