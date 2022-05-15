@@ -2,6 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {NavigationContainer} from '@react-navigation/native'
 import {View, Text} from '../components-core'
 import {Link} from '@react-navigation/native'
+import {Recipe, RecipeList} from '../routes'
 
 function LoginScreen() {
     return (
@@ -28,6 +29,8 @@ export const Navigation = (props) => {
     return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen name='RecipeList' component={RecipeList} />
+                <Stack.Screen name='Recipe' component={Recipe} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Details" component={DetailsScreen} />
             </Stack.Navigator>
