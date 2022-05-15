@@ -1,0 +1,11 @@
+{
+  "name": "common-libraries",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node index.js",
+    "build": "node build"
+  },
+  "dependencies": {
+    "got": "^11.8.2"
+  }
+}
