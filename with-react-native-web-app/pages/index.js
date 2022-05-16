@@ -53,12 +53,13 @@ const styles = StyleSheet.create({
 
 // called at build time
 export async function getStaticProps() {
-  const data = useFileSystemCache(async () => {
+  const data = await useFileSystemCache(async () => {
       const r = await fetch('https://api.github.com/repos/bit-shift-io/the-great-cook-up/git/trees/main').then(r => r.json())
       return r
   }, {
-      cacheBaseKey: 'basekey'
-  })
+      cacheBaseKey: 'basekey', 
+      ttl: 600000
+  })()
 
   //const data = await fetch('https://api.github.com/repos/bit-shift-io/the-great-cook-up/git/trees/main').then(r => r.json())
   return {

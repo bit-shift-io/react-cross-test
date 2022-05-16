@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
 
 
 export async function getStaticProps(props) {
-  const data = await fetch(`https://raw.githubusercontent.com/bit-shift-io/the-great-cook-up/main/${props.params.path}`)
+  const url = `https://raw.githubusercontent.com/bit-shift-io/the-great-cook-up/main/${props.params.recipe}.md`
+  const data = await fetch(url).then(r => r.text())
   return {
     props: {
       content: data
@@ -53,12 +54,13 @@ export async function getStaticPaths() {
     // https://github.com/vercel/next.js/discussions/14533
     // it looks like we need to cache to disk
 
-    const data = useFileSystemCache(async () => {
+    const data = await useFileSystemCache(async () => {
         const r = await fetch('https://api.github.com/repos/bit-shift-io/the-great-cook-up/git/trees/main').then(r => r.json())
         return r
     }, {
-        cacheBaseKey: 'basekey'
-    })
+        cacheBaseKey: 'basekey',
+        ttl: 600000
+    })()
     /*
     // Call an external API endpoint to get posts
     const getFiles = _.memoize(async () => {
@@ -70,7 +72,7 @@ export async function getStaticPaths() {
     
     // Get the paths we want to pre-render based on posts
     const paths = data.tree.map((file) => ({
-      params: { recipe: file.path },
+      params: { recipe: file.path.replace('.md', '') },
     }))
   
     // We'll pre-render only these paths at build time.
