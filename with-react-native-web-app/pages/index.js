@@ -1,32 +1,40 @@
-import { StyleSheet, Text, View } from 'react-native'
-import { useFileSystemCache } from '../utils/filesystem-cache'
+import { useState } from 'react'
+import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native'
+import { getFileList } from '../services/github'
 
 export default function App(props) {
+  const [filter, setFilter] = useState('')
+
+  const files = props.files?.filter(file => {
+    if (!filter) {
+      return true
+    }
+    const path = file.path.replace('.md', '')
+    const title = path.replaceAll('-', ' ')
+    return title.includes(filter)
+  }) || []
   return (
-    <View style={styles.container}>
-      <Text accessibilityRole="header" style={styles.text}>
-        React Native for Web & Next.js
-      </Text>
-
-      <Text style={styles.link} accessibilityRole="link" href={`/alternate`}>
-        A universal link
-      </Text>
-      
-
-      <View style={styles.textContainer}>
-        <Text accessibilityRole="header" aria-level="2" style={styles.text}>
-          Subheader
+    <ScrollView>
+      <View style={styles.container}>
+        <Text accessibilityRole="header" style={styles.text}>
+          The Great Cookup
         </Text>
+
+        <TextInput
+          style={styles.input}
+          onChangeText={setFilter}
+          value={filter}
+        />
+
+        {files.map(file => {
+          const path = file.path.replace('.md', '')
+          const title = path.replaceAll('-', ' ')
+          return (
+            <Text key={path} style={styles.link} accessibilityRole="link" href={`/${path}`}>{title}</Text>
+          )
+        })}
       </View>
-
-      {props.files && props.files.map(file => {
-        const path = file.path.replace('.md', '')
-        return (
-          <Text key={path} style={styles.link} accessibilityRole="link" href={`/${path}`}>{path}</Text>
-        )
-      })}
-
-    </View>
+    </ScrollView>
   )
 }
 
@@ -34,7 +42,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flexGrow: 1,
-    justifyContent: 'center',
+    //justifyContent: 'center',
+    marginBottom: 50,
+    marginTop: 50
   },
   link: {
     color: 'blue',
@@ -48,23 +58,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 24,
   },
+  input: {
+    borderWidth: 1,
+    marginBottom: 20
+  }
 })
 
 
 // called at build time
 export async function getStaticProps() {
-  const data = await useFileSystemCache(async () => {
-      const r = await fetch('https://api.github.com/repos/bit-shift-io/the-great-cook-up/git/trees/main').then(r => r.json())
-      return r
-  }, {
-      cacheBaseKey: 'basekey', 
-      ttl: 600000
-  })()
-
-  //const data = await fetch('https://api.github.com/repos/bit-shift-io/the-great-cook-up/git/trees/main').then(r => r.json())
+  const files = await getFileList()
   return {
     props: {
-      files: data.tree
+      files
     }
   }
 }

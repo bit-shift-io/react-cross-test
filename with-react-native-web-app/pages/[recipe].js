@@ -1,23 +1,35 @@
 
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import _ from 'lodash'
-import { useFileSystemCache } from '../utils/filesystem-cache'
+//import { useFileSystemCache } from '../utils/filesystem-cache'
+import { marked } from 'marked'
+import { getFileList } from '../services/github'
 
 export default function Recipe(props) {
   return (
-    <View style={styles.container}>
-      <Text accessibilityRole="header" style={styles.text}>
-        Recipe Page
-      </Text>
+    <ScrollView>
+      <View style={styles.container}>
+        {/*
+        <Text accessibilityRole="header" style={styles.text}>
+          Recipe Page
+        </Text>
+    */}
 
-      <Text>
-        {props.content}
-      </Text>
+        <Text style={styles.link} accessibilityRole="link" href={`/`}>
+          Go Back
+        </Text>
 
-      <Text style={styles.link} accessibilityRole="link" href={`/`}>
-        Go Back
-      </Text>
-    </View>
+  {/*
+        <Text>
+          {props.content}
+        </Text>
+    */}
+
+        <div dangerouslySetInnerHTML={{__html: props.html}}/>
+
+        
+      </View>
+    </ScrollView>
   )
 }
 
@@ -26,6 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexGrow: 1,
     justifyContent: 'center',
+    width: '80%'
   },
   text: {
     alignItems: 'center',
@@ -33,6 +46,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   link: {
+    marginTop: 50,
     color: 'blue',
   },
 })
@@ -41,9 +55,13 @@ const styles = StyleSheet.create({
 export async function getStaticProps(props) {
   const url = `https://raw.githubusercontent.com/bit-shift-io/the-great-cook-up/main/${props.params.recipe}.md`
   const data = await fetch(url).then(r => r.text())
+  const tokens = marked.lexer(data)
+  const html = marked.parser(tokens)
   return {
     props: {
-      content: data
+      content: data,
+      //tokens,
+      html
     }
   }
 }
@@ -54,24 +72,10 @@ export async function getStaticPaths() {
     // https://github.com/vercel/next.js/discussions/14533
     // it looks like we need to cache to disk
 
-    const data = await useFileSystemCache(async () => {
-        const r = await fetch('https://api.github.com/repos/bit-shift-io/the-great-cook-up/git/trees/main').then(r => r.json())
-        return r
-    }, {
-        cacheBaseKey: 'basekey',
-        ttl: 600000
-    })()
-    /*
-    // Call an external API endpoint to get posts
-    const getFiles = _.memoize(async () => {
-        const r = await fetch('https://api.github.com/repos/bit-shift-io/the-great-cook-up/git/trees/main').then(r => r.json())
-        return r
-    })
-    const data = await getFiles()
-    */
-    
+    const files = await getFileList()
+
     // Get the paths we want to pre-render based on posts
-    const paths = data.tree.map((file) => ({
+    const paths = files.map((file) => ({
       params: { recipe: file.path.replace('.md', '') },
     }))
   
