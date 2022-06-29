@@ -21,7 +21,7 @@ export const Navigation = (props) => {
   return (
     <NavigationContainer>
         <Stack.Navigator>
-          {!user.isSignedIn ? (
+          {!user.state.isSignedIn ? (
             <>
               <Stack.Screen name="Login" component={LoginRoute} />
             </>

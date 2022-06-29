@@ -6,19 +6,23 @@ export const LoginForm = (props) => {
     const user = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState()
+
     const onSubmit = (args, otherArgs) => {
         setLoading(true)
+        setError()
         const {password, username} = args
-        user.dispatch(user.signIn({username, password}))
-        /*
-        user.dispatch({type: 'SIGN_IN', payload: {
-            username,
-            password
-        }})*/
-        //user.signIn({username, password})
+        const p = user.signIn2({username, password})
+            .catch((err) => {
+                setError(err)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+        //console.log(p)
     }
 
     return (
-        <LoginFormView onSubmit={onSubmit} loading={loading}/>
+        <LoginFormView onSubmit={onSubmit} loading={loading} error={error}/>
     )
 }

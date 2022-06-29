@@ -1,29 +1,33 @@
-import { createContext } from 'react'
+import {createReducerContext} from '@utils/create-reducer-context'
 
-export const UserContext = createContext()
-
-export const userInitialState = {
+const initialState = {
     username: 'Bob',
     password: '',
     isSignedIn: false
 }
 
-export const userReducer = (state, action) => {
-    switch (action.type) {
-      case 'SIGN_IN':
+const reducerActions = {
+    signIn: (state, action) => {
         return {
-          ...state,
-          isSignedIn: true
+            ...state,
+            isSignedIn: true
         }
-      
-      default:
-        return state
-    }
+    },
 }
 
-export const signIn = ({username, password}) => {
-    console.log('qwe')
-    return (dispatch, getState) => {
-        console.log('qwe2')
-    }
+const asyncActions =  {
+    signIn2: (payload, dispatch, state) => {
+        console.log('simulate a fetch or something slow here')
+        return new Promise((resolve, reject) => { 
+            setTimeout(() => {
+                //throw new Error("Bad signing attempte!")
+                //reject('Bad signing attempte!')
+                //return
+                dispatch({type: 'signIn', payload})
+                resolve()
+            }, 1000)
+        })
+    },  
 }
+
+export const [UserContext, UserProvider, useUserReducer] = createReducerContext(initialState, reducerActions, asyncActions)

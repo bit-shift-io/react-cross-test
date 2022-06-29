@@ -1,11 +1,11 @@
 import {useReducer} from 'react'
-import {UserContext, userReducer, userInitialState, signIn} from '@features/users/user.context'
+import {UserContext, UserProvider, useUserReducer /*userReducer, userInitialState, signIn*/} from '@features/users/user.context'
 
 export const Providers = (props) => {
-    const [userState, userDispatch] = useReducer(userReducer, userInitialState)
+    //const [userState, userDispatch] = useUserReducer() //useReducer(userReducer, userInitialState)
     return (
-        <UserContext.Provider value={{...userState, dispatch: userDispatch, signIn}}>
+        <UserProvider /*value={{state: userState, dispatch: userDispatch, actions: {signIn}}}*/>
             {props.children}
-        </UserContext.Provider>
+        </UserProvider>
     )
 }
