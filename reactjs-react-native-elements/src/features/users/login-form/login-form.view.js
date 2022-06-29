@@ -1,7 +1,7 @@
-import {View} from '../../components-core'
+import {View} from '../../../components'
 import {Input, Button} from '@rneui/themed'
 //import {useForm} from 'react-hook-form'
-import {useForm} from '../../hooks/use-form'
+import {useForm} from '../../../hooks/use-form'
 
 export const LoginFormView = (props) => {
     const {onSubmit, loading} = props

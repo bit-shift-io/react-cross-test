@@ -1,3 +1,3 @@
-export * from './login-form'
-export * from './todo-list'
-export * from './recipe-list-item'
+export * from './view'
+export * from './text'
+export * from './flex'

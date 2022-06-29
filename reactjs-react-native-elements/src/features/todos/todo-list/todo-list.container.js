@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {TodoListView} from './todo-list.view'
-import {addTodo, useTodoList, setTodoList, removeTodo} from '../../store/todo-list'
+import {addTodo, useTodoList, setTodoList, removeTodo} from './todo-list.store'
 
 export const TodoList = (props) => {
     const [loading, setLoading] = useState(false)
