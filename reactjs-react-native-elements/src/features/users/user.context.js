@@ -13,6 +13,8 @@ const reducerActions = {
             isSignedIn: true
         }
     },
+
+    signOut: (state, action) => ({...state, isSignedIn: false})
 }
 
 const asyncActions =  {
@@ -30,4 +32,4 @@ const asyncActions =  {
     },  
 }
 
-export const [UserContext, UserProvider, useUserReducer] = createReducerContext(initialState, reducerActions, asyncActions)
+export const [UserContext, UserProvider, useUserReducer, useUserContext] = createReducerContext(initialState, reducerActions, asyncActions)

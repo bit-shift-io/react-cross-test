@@ -1,33 +1,39 @@
-import {useContext} from 'react'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {NavigationContainer} from '@react-navigation/native'
-import {View, Text} from './components'
 import {LoginRoute} from '@features/users/login.route'
-import {UserContext} from '@features/users/user.context'
-
-function DetailsScreen() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-      </View>
-    );
-  }
+import {useUserContext} from '@features/users/user.context'
+import {DetailsRoute} from '@features/todos/details/details.route'
 
 const Stack = createNativeStackNavigator()
 
 export const Navigation = (props) => {
   // https://reactnavigation.org/docs/auth-flow/
-  const user = useContext(UserContext)
+  const user = useUserContext()
+
+  /*
+  if (loading) {
+    return <SplashScreen/>
+  }*/
+
   return (
     <NavigationContainer>
         <Stack.Navigator>
           {!user.state.isSignedIn ? (
             <>
-              <Stack.Screen name="Login" component={LoginRoute} />
+              <Stack.Screen 
+                name="Login"
+                component={LoginRoute}
+                options={{
+                  //title: 'Sign in',
+                  // When logging out, a pop animation feels intuitive
+                  // You can remove this if you want the default 'push' animation
+                  animationTypeForReplace: 'push' ,//'pop' //user.state.isSignedIn ? 'pop' : 'push',
+                }}
+              />
             </>
           ) : (
             <>
-              <Stack.Screen name="Details" component={DetailsScreen} />
+              <Stack.Screen name="Details" component={DetailsRoute} />
             </>
           )}
         </Stack.Navigator>

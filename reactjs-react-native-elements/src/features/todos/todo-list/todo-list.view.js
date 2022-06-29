@@ -1,5 +1,4 @@
-import {View, Text} from '../../../components'
-import {Input, Button} from '@rneui/themed'
+import {View, Input, Button} from '@components'
 
 export const TodoItem = (props) => {
     const {todo, onRemovePress} = props

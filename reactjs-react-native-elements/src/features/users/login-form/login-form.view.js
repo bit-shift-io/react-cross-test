@@ -1,7 +1,5 @@
-import {View, Text} from '@components'
-import {Input, Button} from '@rneui/themed'
-//import {useForm} from 'react-hook-form'
-import {useForm} from '../../../hooks/use-form'
+import {View, Text, Input, Button} from '@components'
+import {useForm} from '@utils/use-form'
 
 export const LoginFormView = (props) => {
     const {onSubmit, loading, error} = props

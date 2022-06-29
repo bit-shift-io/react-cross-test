@@ -1,4 +1,4 @@
-import {useReducer} from 'react'
+import {useReducer, useContext} from 'react'
 import { createContext } from 'react'
 
 export const createReducerContext = (initialState, reducerActions, asyncActions) => {
@@ -44,5 +44,7 @@ export const createReducerContext = (initialState, reducerActions, asyncActions)
         )
     }
 
-    return [Context, Provider, useReducerHook]
+    const useContextHook = () => useContext(Context)
+
+    return [Context, Provider, useReducerHook, useContextHook]
 }
