@@ -1,6 +1,6 @@
 import {View, Button} from '@components'
-import { useUserContext } from '@features/users/user.context'
-import { TodoList } from '../todo-list/todo-list.container'
+import {useUserContext} from '@features/users/user.context'
+import {TodoList} from '../todo-list/todo-list.container'
 
 export const DetailsRoute = () => {
     const user = useUserContext()

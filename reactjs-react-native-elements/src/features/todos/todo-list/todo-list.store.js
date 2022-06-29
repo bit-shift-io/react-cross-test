@@ -1,3 +1,5 @@
+// hooks-for-redux seems good if we need reduc support
+// but ideally we don't
 import { createReduxModule } from "hooks-for-redux"
 import _ from 'lodash'
 
